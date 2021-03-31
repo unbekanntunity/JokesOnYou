@@ -20,12 +20,12 @@ namespace JokesOnYou.Web.Api.Services
 
         public async Task DeleteUser(string id)
         {
-            var user = _userRepository.GetUserAsync(id) ?? null;
+            var user = await _userRepository.GetUserAsync(id) ?? null;
 
             if (user == null)
                 throw new Exception();
 
-            var userToDelete = new User { Id = user.Result.Id };
+            var userToDelete = new User { Id = user.Id };
 
             await _userRepository.DeleteUserAsync(userToDelete);
         }
@@ -42,7 +42,7 @@ namespace JokesOnYou.Web.Api.Services
 
         public async Task UpdateUser(UserUpdateDTO updateDTO)
         {
-            //
+            // something something darkside
         }
     }
 }
