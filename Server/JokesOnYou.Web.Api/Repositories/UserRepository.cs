@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using JokesOnYou.Web.Api.DTOs;
@@ -27,14 +27,6 @@ namespace JokesOnYou.Web.Api.Repositories
 
         public async Task<User> CreateUserAsync(UserRegisterDTO userRegisterDTO)
         {
-            /* Just in case we need it
-            if (_userManager.Users.Any(x => x.Email == userRegisterDTO.Email))
-                throw new AppException($"Email {userRegisterDTO.Email} is already taken");
-
-            
-            if (_userManager.Users.Any(x => x.UserName == userRegisterDTO.UserName))
-                throw new AppException($"Username: {userRegisterDTO.UserName} is already taken");
-            */
 
             var userCreationResult = await _userManager.CreateAsync(new User() { Email = userRegisterDTO.Email,
                 UserName = userRegisterDTO.UserName }, userRegisterDTO.Password);
@@ -54,10 +46,7 @@ namespace JokesOnYou.Web.Api.Repositories
             }
         }
 
-        public async Task DeleteUserAsync(User user)
-        {
-            await _userManager.DeleteAsync(user);
-        }
+        public Task DeleteUserAsync(User user) => _userManager.DeleteAsync(user);
 
         public async Task<UserReplyDTO> GetUserReplyAsync(string id)
         {
@@ -75,42 +64,20 @@ namespace JokesOnYou.Web.Api.Repositories
             //var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
             return await _userManager.FindByIdAsync(id);
         }
-        public Task<User> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return _userManager.FindByEmailAsync(email);
+            return await _userManager.FindByEmailAsync(email);
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            //Such a waste of bits
             return await _userManager.Users.ToListAsync();
-
-             
         }
 
         public async Task UpdateUser(User user)
         {
             await _userManager.UpdateAsync(user);
         }
-        /*
-         * Commented this out in case someone needs the code :)
-        public async Task<User> Authenticate(string username, string password)
-        {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) //no point in going forward if either of these is empty
-                    throw new AppException("Password and Username are required");
-
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
-
-            if (user == null) //no point going forward if user is empty
-                return null;
-
-            if (!await _userManager.CheckPasswordAsync(user, password)) //if password wrong, return
-                return null;
-
-            // authentication worked
-            return user;
-
-        }
-        */
+        
     }
 }
