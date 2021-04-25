@@ -13,7 +13,6 @@ namespace JokesOnYou.Web.Api.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-    
         public DbSet<Joke> Jokes { get; set; }
         //For each class in models folder, add it here, only if its also in db
     }
