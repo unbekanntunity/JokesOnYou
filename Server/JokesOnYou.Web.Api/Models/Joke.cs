@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace JokesOnYou.Web.Api.Models
 {
@@ -20,5 +21,6 @@ namespace JokesOnYou.Web.Api.Models
         public int TimesFlagged { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }
