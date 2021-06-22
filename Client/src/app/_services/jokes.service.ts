@@ -17,4 +17,8 @@ export class JokesService {
   getJokes() {
     return this.http.get<Joke[]>(this.jokesUrl);
   }
+
+  updateJoke(joke: Joke) {
+    return this.http.put<Joke[]>(this.jokesUrl, joke);
+  }
 }

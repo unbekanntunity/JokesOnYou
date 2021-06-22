@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { fakeAsync } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { JokesService } from "src/app/_services/jokes.service";
 import { Joke } from 'src/app/_models/joke';
-import { jokes } from 'src/app/_services/testJokes';
 
 @Component({
   selector: 'app-joke-card',
@@ -31,7 +30,7 @@ export class JokeCardComponent implements OnInit {
   private tagsSum: number = 0;
   private currentIndex: number = 0;
 
-  constructor() {
+  constructor(private jokeService: JokesService) {
     this.checkTag();
   }
 
@@ -65,10 +64,12 @@ export class JokeCardComponent implements OnInit {
   }
 
   like(): void {
+    this.jokeService.updateJoke(this.joke);
     this.joke.likes++;
   }
 
   dislike(): void {
+    this.jokeService.updateJoke(this.joke);
     this.joke.dislikes++;
   }
 }
