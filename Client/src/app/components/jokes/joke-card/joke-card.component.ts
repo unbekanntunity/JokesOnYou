@@ -37,7 +37,6 @@ export class JokeCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   revealSpoiler(): void {
     this.punchlineVisibility = "visible";
     this.spoiler = "spoilerHidden content";
@@ -64,12 +63,12 @@ export class JokeCardComponent implements OnInit {
   }
 
   like(): void {
-    this.jokeService.updateJoke(this.joke);
     this.joke.likes++;
+    this.jokeService.updateJoke(this.joke);
   }
 
   dislike(): void {
-    this.jokeService.updateJoke(this.joke);
     this.joke.dislikes++;
+    this.jokeService.updateJoke(this.joke);
   }
 }
