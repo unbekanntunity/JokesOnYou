@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="card-body">
+  <div class="card-body" #bodyCard>
     <p class="content">{{joke.premise}}</p>
     <button [ngClass]="spoiler" (click)="revealSpoiler()">
       <p class="punchline" [style.visibility]="punchlineVisibility">{{joke.punchline}}</p>
@@ -10,7 +10,6 @@
       <p class="sideNote right-colum">{{joke.uploadDate}}</p>
     </div>
   </div>
-
 
   <div class="card-footer">
     <div class="grid-container-display">

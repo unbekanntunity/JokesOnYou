@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { JokesService } from "src/app/_services/jokes.service";
 import { Joke } from 'src/app/_models/joke';
 
@@ -27,6 +27,8 @@ export class JokeCardComponent implements OnInit {
   spoiler: string = "spoilerShow content";
   punchlineVisibility: string = "hidden";
 
+  @ViewChild('bodyCard', { static: true }) bodyCard: Element | undefined;
+
   private tagsSum: number = 0;
   private currentIndex: number = 0;
 
@@ -35,11 +37,13 @@ export class JokeCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkVisibility();
   }
 
   revealSpoiler(): void {
     this.punchlineVisibility = "visible";
     this.spoiler = "spoilerHidden content";
+    this.joke.seen++;
   }
 
   checkTag(): void {
@@ -60,6 +64,11 @@ export class JokeCardComponent implements OnInit {
 
     this.tags[this.currentIndex] = "..." 
     this.tags.splice(this.currentIndex + 1, this.joke.tags.length - this.currentIndex);
+  }
+
+  checkVisibility(): void {
+    if (this.bodyCard != undefined) {
+    }
   }
 
   like(): void {
